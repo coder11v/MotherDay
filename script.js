@@ -1,4 +1,3 @@
-
 // Love messages array
 const loveMessages = [
     "Your smile brightens our day 💝",
@@ -65,7 +64,7 @@ function copyLink() {
 
 function shareWhatsApp() {
     const shareLink = document.getElementById('shareLink').value;
-    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent('Check out this Mother's Day card I made for you! 💝
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent('Check out this Mother\'s Day card I made for you! 💝
 
 ' + shareLink)}`;
     window.open(whatsappUrl, '_blank');
@@ -128,7 +127,8 @@ if (rickroll) {
         .then(response => response.json())
         .then(data => {
             if (data.customMessage) {
-                document.getElementById('customMessageDisplay').textContent = data.customMessage;
+                const message = data.customMessage.replace(/Mama/g, name);
+                document.getElementById('customMessageDisplay').textContent = message;
             }
         })
         .catch(error => console.error('Error loading message:', error));
@@ -175,7 +175,8 @@ surpriseBtn?.addEventListener('click', function () {
         .then(response => response.json())
         .then(data => {
             if (data.customMessage) {
-                document.getElementById('customMessageDisplay').textContent = data.customMessage;
+                const message = data.customMessage.replace(/Mama/g, name);
+                document.getElementById('customMessageDisplay').textContent = message;
             }
         })
         .catch(error => console.error('Error loading message:', error));
