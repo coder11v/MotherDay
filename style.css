@@ -1,0 +1,27 @@
+
+/* Reward button styles */
+.reward-btn {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.reward-btn.claimed {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Love message animation */
+#loveMessage {
+    min-height: 3em;
+}
+
+/* Virtual hug button animation */
+@keyframes heartBeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.heart-beat {
+    animation: heartBeat 0.5s ease-in-out;
+}
