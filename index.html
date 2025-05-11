@@ -420,6 +420,7 @@
         // Initialize love messages carousel
         let currentMessageIndex = 0;
         const loveMessageElement = document.getElementById('loveMessage');
+        let messageInterval;
 
         function showNextMessage() {
             loveMessageElement.style.opacity = '0';
@@ -432,7 +433,7 @@
 
         // Start the carousel
         loveMessageElement.textContent = loveMessages[0];
-        setInterval(showNextMessage, 3000);
+        messageInterval = setInterval(showNextMessage, 3000);
 
         // Virtual hugs counter
         let hugCount = 0;
@@ -543,7 +544,7 @@
         }
         
          // Set fromName in signature
-        document.getElementById('signatureFrom').textContent = fromName;
+        document.getElementById('signatureFrom').textContent = 'from ' + fromName + ' with love';
 
         // Create confetti animation
         function createConfetti() {
@@ -559,6 +560,11 @@
                 confetti.style.width = Math.random() * 10 + 5 + 'px';
                 confetti.style.height = Math.random() * 10 + 5 + 'px';
                 container.appendChild(confetti);
+                
+                // Remove confetti after animation
+                setTimeout(() => {
+                    confetti.remove();
+                }, 3000);
             }
         }
 
