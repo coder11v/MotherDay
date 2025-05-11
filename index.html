@@ -491,6 +491,7 @@
 
         // Share modal functions
         function openShareModal() {
+            The code updates the default name logic, hides the rewards section if the link is shared, and removes background music.```text
             document.getElementById('shareModal').style.display = 'flex';
         }
 
@@ -501,19 +502,27 @@
         // Get parameters from query string
         const urlParams = new URLSearchParams(window.location.search);
         const name = urlParams.get('name') || 'Mama';
-        const fromName = urlParams.get('from') || 'VB&J';
-
-        const rickroll = urlParams.get('rickroll') === 'true';
+        const isShared = urlParams.toString().length > 0;
+        const fromName = isShared ? (urlParams.get('from') || 'Someone') : 'VB&J';
 
         // Update all instances of 'Mama' with the recipient's name
         document.body.innerHTML = document.body.innerHTML.replace(/Mama/g, name);
-        
+
+        // Hide rewards section if link is shared
+        if (isShared) {
+            const rewardsSection = document.querySelector('.reward-btn').closest('.mt-8');
+            if (rewardsSection) {
+                rewardsSection.style.display = 'none';
+            }
+        }
+
         // Make the 'from' name bigger
         document.getElementById('signatureFrom').style.fontSize = '1.25rem';
         document.getElementById('signatureFrom').style.fontWeight = 'bold';
         document.getElementById('signatureFrom').style.color = '#db2777';
 
         // Handle rickroll parameter
+        const rickroll = urlParams.get('rickroll') === 'true';
         if (rickroll) {
             const modal = document.getElementById('rickroll-modal');
             modal.style.display = 'flex';
@@ -532,6 +541,9 @@
                 })
                 .catch(error => console.error('Error loading message:', error));
         }
+        
+         // Set fromName in signature
+        document.getElementById('signatureFrom').textContent = fromName;
 
         // Create confetti animation
         function createConfetti() {
