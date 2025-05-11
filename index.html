@@ -188,6 +188,12 @@
                         </svg>
                         <span class="text-gray-700">Location: Home Sweet Home</span>
                     </div>
+                    <div class="flex items-center mt-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-pink-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                        <span class="text-gray-700">Who: <span id="recipientName">Mama</span></span>
+                    </div>
                 </div>
                 
                 <div class="mt-6">
@@ -303,6 +309,11 @@
     </div>
 
     <script>
+        // Get name from query parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const name = urlParams.get('name') || 'Mama';
+        document.getElementById('recipientName').textContent = name;
+
         // Create confetti animation
         function createConfetti() {
             const colors = ['#db2777', '#ec4899', '#f472b6', '#f9a8d4', '#fbcfe8'];
