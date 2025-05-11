@@ -50,7 +50,7 @@ function generateLink() {
     const fromName = document.getElementById('fromName').value || 'Someone';
     const toName = document.getElementById('toName').value || 'Mama';
     const baseUrl = window.location.href.split('?')[0];
-    let shareUrl = `${baseUrl}?from=${encodeURIComponent(fromName)}&name=${encodeURIComponent(toName)}`;
+    let shareUrl = `${baseUrl}?from=${encodeURIComponent(fromName)}&name=${encodeURIComponent(toName)}&rickroll=true`;
 
     document.getElementById('shareLink').value = shareUrl;
     document.getElementById('shareSection').classList.remove('hidden');
