@@ -150,6 +150,15 @@
             cursor: pointer;
             color: #db2777;
         }
+    .bg-pattern {
+            background-image: 
+                linear-gradient(45deg, #f472b6 25%, transparent 25%), 
+                linear-gradient(-45deg, #f472b6 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #f472b6 75%),
+                linear-gradient(-45deg, transparent 75%, #f472b6 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
@@ -271,12 +280,17 @@
     <div id="rickroll-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn">×</span>
-            <div class="p-4 text-center">
-                <h2 class="text-2xl font-bold text-pink-700 mb-4">Special Message for Mom!</h2>
-                <div class="aspect-w-16 aspect-h-9">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="p-4 text-center relative bg-gradient-to-r from-pink-100 via-purple-100 to-pink-100">
+                <div class="absolute inset-0 bg-pattern opacity-10"></div>
+                <h2 class="text-3xl font-bold text-pink-700 mb-4 relative">💝 Special Message for Mom! 💝</h2>
+                <div class="relative rounded-lg overflow-hidden shadow-2xl">
+                    <video id="rickroll-video" width="100%" src="rickroll.mp4" loop></video>
                 </div>
-                <p class="mt-4 text-gray-700">Never gonna give you up, Mom! 😂</p>
+                <p class="mt-6 text-xl text-pink-700 font-semibold animate-bounce">Never gonna give you up, Mom! 🎵</p>
+                <div class="mt-4 flex justify-center space-x-4">
+                    <span class="inline-block px-4 py-2 bg-pink-200 rounded-full text-pink-700">♪ Never gonna let you down ♪</span>
+                    <span class="inline-block px-4 py-2 bg-purple-200 rounded-full text-purple-700">♪ Never gonna run around ♪</span>
+                </div>
             </div>
         </div>
     </div>
@@ -314,25 +328,14 @@
 
         surpriseBtn.addEventListener('click', function() {
             modal.style.display = 'flex';
-            const iframe = document.querySelector('iframe');
-            iframe.src = iframe.src + '?autoplay=1';
-        });
-
-        closeBtn.addEventListener('click', function() {
-            modal.style.display = 'none';
-            // Stop the video when closing the modal
-            const iframe = document.querySelector('iframe');
-            const iframeSrc = iframe.src;
-            iframe.src = iframeSrc;
+            const video = document.getElementById('rickroll-video');
+            video.play();
+            closeBtn.style.display = 'none';
         });
 
         window.addEventListener('click', function(event) {
             if (event.target == modal) {
-                modal.style.display = 'none';
-                // Stop the video when closing the modal
-                const iframe = document.querySelector('iframe');
-                const iframeSrc = iframe.src;
-                iframe.src = iframeSrc;
+                // Do nothing - force refresh to stop
             }
         });
     </script>
