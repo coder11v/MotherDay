@@ -420,7 +420,7 @@
         // Initialize love messages carousel
         let currentMessageIndex = 0;
         const loveMessageElement = document.getElementById('loveMessage');
-        
+
         function showNextMessage() {
             loveMessageElement.style.opacity = '0';
             setTimeout(() => {
@@ -491,7 +491,7 @@
 
         // Share modal functions
         function openShareModal() {
-            The code updates the default name logic, hides the rewards section if the link is shared, and removes background music.```text
+            The code updates the default name logic, hides the rewards section if the link is shared, and removes background music.
             document.getElementById('shareModal').style.display = 'flex';
         }
 
@@ -532,7 +532,7 @@
             closeBtn.style.display = 'none';
 
             // Display custom message from data.json
-            fetch('/data.json')
+            fetch('./data.json')
                 .then(response => response.json())
                 .then(data => {
                     if (data.customMessage) {
@@ -541,7 +541,7 @@
                 })
                 .catch(error => console.error('Error loading message:', error));
         }
-        
+
          // Set fromName in signature
         const fromText = isShared ? ('from ' + fromName + ' with love') : 'from Veer and Jiya with love';
         document.getElementById('signatureFrom').textContent = fromText;
@@ -550,7 +550,7 @@
         function createConfetti() {
             const colors = ['#db2777', '#ec4899', '#f472b6', '#f9a8d4', '#fbcfe8'];
             const container = document.getElementById('confetti-container');
-            
+
             // Clear existing confetti
             container.innerHTML = '';
 
@@ -563,7 +563,7 @@
                 confetti.style.width = Math.random() * 10 + 5 + 'px';
                 confetti.style.height = Math.random() * 10 + 5 + 'px';
                 container.appendChild(confetti);
-                
+
                 setTimeout(() => {
                     if (confetti.parentNode === container) {
                         container.removeChild(confetti);
@@ -592,7 +592,7 @@
             closeBtn.style.display = 'none';
 
             // Display custom message from data.json
-            fetch('/data.json')
+            fetch('./data.json')
                 .then(response => response.json())
                 .then(data => {
                     if (data.customMessage) {
