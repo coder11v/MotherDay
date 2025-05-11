@@ -49,7 +49,7 @@ function claimReward(button) {
 function generateLink() {
     const fromName = document.getElementById('fromName').value || 'Someone';
     const toName = document.getElementById('toName').value || 'Mama';
-    const baseUrl = window.location.origin + window.location.pathname;
+    const baseUrl = window.location.href.split('?')[0];
     let shareUrl = `${baseUrl}?from=${encodeURIComponent(fromName)}&name=${encodeURIComponent(toName)}`;
 
     document.getElementById('shareLink').value = shareUrl;
@@ -112,7 +112,7 @@ const signatureFrom = document.getElementById('signatureFrom');
 signatureFrom.style.fontSize = '1.25rem';
 signatureFrom.style.fontWeight = 'bold';
 signatureFrom.style.color = '#db2777';
-signatureFrom.textContent = isShared ? (fromName) : 'from Veer and Jiya with love';
+signatureFrom.textContent = isShared ? fromName : 'Veer and Jiya';
 
 // Rickroll logic
 const rickroll = urlParams.get('rickroll') === 'true';
@@ -159,18 +159,16 @@ function createConfetti() {
 }
 
 // Redeem button
-document.addEventListener('DOMContentLoaded', function() {
-    const redeemBtn = document.getElementById('redeem-btn');
-    if (redeemBtn) {
-        redeemBtn.addEventListener('click', function() {
-            createConfetti();
-            this.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>Redeemed!';
-            this.classList.remove('bg-pink-600', 'hover:bg-pink-700');
-            this.classList.add('bg-green-600', 'hover:bg-green-700');
-            this.disabled = true;
-        });
-    }
-});
+const redeemBtn = document.getElementById('redeem-btn');
+if (redeemBtn) {
+    redeemBtn.addEventListener('click', function() {
+        createConfetti();
+        this.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>Redeemed!';
+        this.classList.remove('bg-pink-600', 'hover:bg-pink-700');
+        this.classList.add('bg-green-600', 'hover:bg-green-700');
+        this.disabled = true;
+    });
+}
 
 // Rickroll modal open
 const modal = document.getElementById('rickroll-modal');
