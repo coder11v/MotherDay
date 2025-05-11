@@ -7,17 +7,17 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap');
-        
+
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #fdf2f8;
         }
-        
+
         .ticket {
             position: relative;
             overflow: hidden;
         }
-        
+
         .ticket:before {
             content: '';
             position: absolute;
@@ -30,7 +30,7 @@
             background-repeat: repeat-y;
             z-index: 10;
         }
-        
+
         .ticket:after {
             content: '';
             position: absolute;
@@ -43,15 +43,15 @@
             background-repeat: repeat-y;
             z-index: 10;
         }
-        
+
         .ticket-header {
             font-family: 'Playfair Display', serif;
         }
-        
+
         .stub {
             position: relative;
         }
-        
+
         .stub:after {
             content: '';
             position: absolute;
@@ -60,16 +60,16 @@
             height: 100%;
             border-right: 2px dashed #db2777;
         }
-        
+
         .benefit-item {
             transition: all 0.3s ease;
         }
-        
+
         .benefit-item:hover {
             transform: translateX(5px);
             color: #db2777;
         }
-        
+
         .confetti {
             position: absolute;
             width: 10px;
@@ -77,7 +77,7 @@
             opacity: 0;
             animation: fall 3s ease-out infinite;
         }
-        
+
         @keyframes fall {
             0% {
                 transform: translateY(-100px) rotate(0deg);
@@ -88,12 +88,12 @@
                 opacity: 0;
             }
         }
-        
+
         .strikethrough {
             position: relative;
             display: inline-block;
         }
-        
+
         .strikethrough:after {
             content: '';
             position: absolute;
@@ -104,7 +104,7 @@
             background-color: #e11d48;
             transform: rotate(-5deg);
         }
-        
+
         .sale-badge {
             position: absolute;
             top: -10px;
@@ -118,7 +118,7 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
             z-index: 20;
         }
-        
+
         .modal {
             display: none;
             position: fixed;
@@ -131,7 +131,7 @@
             justify-content: center;
             align-items: center;
         }
-        
+
         .modal-content {
             background-color: white;
             padding: 20px;
@@ -141,7 +141,7 @@
             overflow: hidden;
             position: relative;
         }
-        
+
         .close-btn {
             position: absolute;
             top: 10px;
@@ -163,7 +163,7 @@
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
     <div id="confetti-container" class="fixed inset-0 pointer-events-none z-50"></div>
-    
+
     <div class="ticket bg-white rounded-xl shadow-xl max-w-3xl w-full mx-auto overflow-hidden relative">
         <div class="flex flex-col md:flex-row">
             <!-- Ticket Stub -->
@@ -173,7 +173,7 @@
                     <h2 class="ticket-header text-3xl font-bold text-pink-800 mt-2">MOTHER'S DAY</h2>
                     <p class="text-pink-600 mt-1">Special Edition</p>
                 </div>
-                
+
                 <div class="mt-6">
                     <div class="flex items-center mb-2">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-pink-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -195,7 +195,7 @@
                         <span class="text-gray-700">Who: <span id="recipientName">Mama</span></span>
                     </div>
                 </div>
-                
+
                 <div class="mt-6">
                     <div class="border-t border-dashed border-pink-300 pt-4">
                         <p class="text-xs text-gray-500">This ticket entitles Mama to a perfect life with all the benefits listed. No expiration date. Love is guaranteed.</p>
@@ -203,7 +203,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Main Ticket Content -->
             <div class="p-8 md:w-2/3 bg-gradient-to-br from-white to-pink-50">
                 <div class="flex justify-between items-start">
@@ -216,7 +216,7 @@
                         <span class="block text-xs font-bold">ACCESS</span>
                     </div>
                 </div>
-                
+
                 <div class="mt-8">
                     <h3 class="text-xl font-semibold text-pink-700 flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -224,7 +224,7 @@
                         </svg>
                         Your Special Benefits:
                     </h3>
-                    
+
                     <ul class="mt-4 space-y-4">
                         <li class="benefit-item flex items-start">
                             <span class="text-pink-600 text-2xl mr-3">💝</span>
@@ -312,6 +312,10 @@
                             <label class="block text-gray-700 mb-2">To:</label>
                             <input type="text" id="toName" placeholder="Recipient's name" class="w-full p-2 border rounded-lg">
                         </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="includeRickroll" class="h-4 w-4 text-pink-600 rounded border-gray-300">
+                            <label class="ml-2 text-gray-700">Include surprise rickroll 🎵</label>
+                        </div>
                         <button onclick="generateLink()" class="bg-pink-600 hover:bg-pink-700 text-white font-semibold py-2 px-4 rounded-lg w-full">
                             Generate Link
                         </button>
@@ -344,7 +348,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="mt-8 flex justify-between items-center">
                     <div>
                         <button id="redeem-btn" class="bg-pink-600 hover:bg-pink-700 text-white font-semibold py-2 px-6 rounded-full transition duration-300 flex items-center">
@@ -440,9 +444,14 @@
         function generateLink() {
             const fromName = document.getElementById('fromName').value || 'Someone';
             const toName = document.getElementById('toName').value || 'Mama';
+            const includeRickroll = document.getElementById('includeRickroll').checked;
             const baseUrl = window.location.origin + window.location.pathname;
-            const shareUrl = `${baseUrl}?from=${encodeURIComponent(fromName)}&name=${encodeURIComponent(toName)}`;
-            
+            let shareUrl = `${baseUrl}?from=${encodeURIComponent(fromName)}&name=${encodeURIComponent(toName)}`;
+
+            if (includeRickroll) {
+                shareUrl += '&rickroll=true';
+            }
+
             document.getElementById('shareLink').value = shareUrl;
             document.getElementById('shareSection').classList.remove('hidden');
         }
@@ -471,14 +480,36 @@
         const urlParams = new URLSearchParams(window.location.search);
         const name = urlParams.get('name') || 'Mama';
         const fromName = urlParams.get('from') || 'Someone';
+        const rickroll = urlParams.get('rickroll') === 'true';
+
         document.getElementById('recipientName').textContent = name;
         document.getElementById('signatureFrom').textContent = fromName;
+
+        // Handle rickroll parameter
+        if (rickroll) {
+            const modal = document.getElementById('rickroll-modal');
+            modal.style.display = 'flex';
+            const video = document.getElementById('rickroll-video');
+            video.play();
+            const closeBtn = document.querySelector('.close-btn');
+            closeBtn.style.display = 'none';
+
+            // Display custom message from data.json
+            fetch('/data.json')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.customMessage) {
+                        document.getElementById('customMessageDisplay').textContent = data.customMessage;
+                    }
+                })
+                .catch(error => console.error('Error loading message:', error));
+        }
 
         // Create confetti animation
         function createConfetti() {
             const colors = ['#db2777', '#ec4899', '#f472b6', '#f9a8d4', '#fbcfe8'];
             const container = document.getElementById('confetti-container');
-            
+
             for (let i = 0; i < 50; i++) {
                 const confetti = document.createElement('div');
                 confetti.className = 'confetti';
@@ -509,7 +540,7 @@
             const video = document.getElementById('rickroll-video');
             video.play();
             closeBtn.style.display = 'none';
-            
+
             // Display custom message from data.json
             fetch('/data.json')
                 .then(response => response.json())
