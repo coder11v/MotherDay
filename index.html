@@ -300,30 +300,41 @@
                     <p id="loveMessage" class="text-lg text-gray-700 italic transition-opacity duration-500"></p>
                 </div>
 
-                <!-- Share Card Creator -->
-                <div class="mt-8 bg-pink-50 p-6 rounded-lg">
-                    <h3 class="text-xl font-semibold text-pink-700 mb-4">Create a Personalized Card:</h3>
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-gray-700 mb-2">From:</label>
-                            <input type="text" id="fromName" placeholder="Your names" class="w-full p-2 border rounded-lg">
-                        </div>
-                        <div>
-                            <label class="block text-gray-700 mb-2">To:</label>
-                            <input type="text" id="toName" placeholder="Recipient's name" class="w-full p-2 border rounded-lg">
-                        </div>
-                        <div class="flex items-center">
-                            <input type="checkbox" id="includeRickroll" class="h-4 w-4 text-pink-600 rounded border-gray-300">
-                            <label class="ml-2 text-gray-700">Include surprise rickroll 🎵</label>
-                        </div>
-                        <button onclick="generateLink()" class="bg-pink-600 hover:bg-pink-700 text-white font-semibold py-2 px-4 rounded-lg w-full">
-                            Generate Link
-                        </button>
-                    </div>
+                <!-- Share Button -->
+                <div class="mt-8 text-center">
+                    <button onclick="openShareModal()" class="bg-pink-600 hover:bg-pink-700 text-white font-semibold py-3 px-6 rounded-full transition duration-300 flex items-center mx-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
+                        </svg>
+                        Share This Card
+                    </button>
                 </div>
 
-                <!-- Share Links -->
-                <div id="shareSection" class="mt-4 hidden">
+                <!-- Share Modal -->
+                <div id="shareModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+                    <div class="bg-white rounded-xl shadow-lg p-8 max-w-md w-full mx-4">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-bold text-pink-800">Share Card</h2>
+                            <button onclick="closeShareModal()" class="text-gray-500 hover:text-gray-700">&times;</button>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-gray-700 mb-2">From:</label>
+                                <input type="text" id="fromName" placeholder="Your names" class="w-full p-2 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 mb-2">To:</label>
+                                <input type="text" id="toName" placeholder="Recipient's name" class="w-full p-2 border rounded-lg">
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="includeRickroll" class="h-4 w-4 text-pink-600 rounded border-gray-300">
+                                <label class="ml-2 text-gray-700">Include surprise rickroll 🎵</label>
+                            </div>
+                            <button onclick="generateLink()" class="bg-pink-600 hover:bg-pink-700 text-white font-semibold py-2 px-4 rounded-lg w-full">
+                                Generate Link
+                            </button>
+                        </div>
+                        <div id="shareSection" class="mt-4 hidden">
                     <div class="bg-gray-50 p-4 rounded-lg mb-4">
                         <input type="text" id="shareLink" readonly class="w-full p-2 border rounded-lg mb-2">
                         <div class="flex space-x-2">
@@ -346,6 +357,8 @@
                                 Email
                             </button>
                         </div>
+                    </div>
+                </div>
                     </div>
                 </div>
 
@@ -476,14 +489,28 @@
             window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         }
 
+        // Share modal functions
+        function openShareModal() {
+            document.getElementById('shareModal').style.display = 'flex';
+        }
+
+        function closeShareModal() {
+            document.getElementById('shareModal').style.display = 'none';
+        }
+
         // Get parameters from query string
         const urlParams = new URLSearchParams(window.location.search);
         const name = urlParams.get('name') || 'Mama';
         const fromName = urlParams.get('from') || 'Someone';
         const rickroll = urlParams.get('rickroll') === 'true';
 
-        document.getElementById('recipientName').textContent = name;
-        document.getElementById('signatureFrom').textContent = fromName;
+        // Update all instances of 'Mama' with the recipient's name
+        document.body.innerHTML = document.body.innerHTML.replace(/Mama/g, name);
+        
+        // Make the 'from' name bigger
+        document.getElementById('signatureFrom').style.fontSize = '1.25rem';
+        document.getElementById('signatureFrom').style.fontWeight = 'bold';
+        document.getElementById('signatureFrom').style.color = '#db2777';
 
         // Handle rickroll parameter
         if (rickroll) {
