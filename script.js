@@ -49,13 +49,8 @@ function claimReward(button) {
 function generateLink() {
     const fromName = document.getElementById('fromName').value || 'Someone';
     const toName = document.getElementById('toName').value || 'Mama';
-    const includeRickroll = document.getElementById('includeRickroll').checked;
     const baseUrl = window.location.origin + window.location.pathname;
     let shareUrl = `${baseUrl}?from=${encodeURIComponent(fromName)}&name=${encodeURIComponent(toName)}`;
-
-    if (includeRickroll) {
-        shareUrl += '&rickroll=true';
-    }
 
     document.getElementById('shareLink').value = shareUrl;
     document.getElementById('shareSection').classList.remove('hidden');
