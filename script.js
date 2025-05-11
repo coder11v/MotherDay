@@ -112,7 +112,7 @@ const signatureFrom = document.getElementById('signatureFrom');
 signatureFrom.style.fontSize = '1.25rem';
 signatureFrom.style.fontWeight = 'bold';
 signatureFrom.style.color = '#db2777';
-signatureFrom.textContent = isShared ? ('from ' + fromName + ' with love') : 'from Veer and Jiya with love';
+signatureFrom.textContent = isShared ? (fromName) : 'from Veer and Jiya with love';
 
 // Rickroll logic
 const rickroll = urlParams.get('rickroll') === 'true';
