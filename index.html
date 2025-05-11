@@ -331,11 +331,15 @@
             video.play();
             closeBtn.style.display = 'none';
             
-            // Display custom message if exists
-            const customMessage = localStorage.getItem('customMessage');
-            if (customMessage) {
-                document.getElementById('customMessageDisplay').textContent = customMessage;
-            }
+            // Display custom message from data.json
+            fetch('/data.json')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.customMessage) {
+                        document.getElementById('customMessageDisplay').textContent = data.customMessage;
+                    }
+                })
+                .catch(error => console.error('Error loading message:', error));
         });
 
         window.addEventListener('click', function(event) {
